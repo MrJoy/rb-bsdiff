@@ -10,3 +10,4 @@ PLATFORMS
 
 DEPENDENCIES
   mg
+  rake

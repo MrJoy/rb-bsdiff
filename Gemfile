@@ -1,6 +1,7 @@
 source :rubygems
 
 group :development do
-  gem "mg"
+  gem 'rake'
+  gem 'mg'
 end
 
