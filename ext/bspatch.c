@@ -24,8 +24,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/cdefs.h>
 #if 0
-__FBSDID("$FreeBSD: src/usr.bin/bsdiff/bspatch/bspatch.c,v 1.1 2005/08/06 01:59:06 cperciva Exp $");
+__FBSDID("$FreeBSD: release/9.0.0/usr.bin/bsdiff/bspatch/bspatch.c 164922 2006-12-05 20:22:14Z cperciva $");
 #endif
 
 #include <bzlib.h>
@@ -36,6 +37,10 @@ __FBSDID("$FreeBSD: src/usr.bin/bsdiff/bspatch/bspatch.c,v 1.1 2005/08/06 01:59:
 #include <fcntl.h>
 
 #include <ruby.h>
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 static off_t offtin(u_char *buf)
 {
@@ -71,7 +76,7 @@ int bspatch_files(const char *oldfile, const char *newfile, const char *patchfil
 	off_t i;
 
 	/* Open patch file */
-	if ((f = fopen(patchfile, "r")) == NULL)
+	if ((f = fopen(patchfile, "rb")) == NULL)
 		rb_raise(rb_eRuntimeError, "fopen(%s)", patchfile);
 
 	/*
@@ -109,21 +114,21 @@ int bspatch_files(const char *oldfile, const char *newfile, const char *patchfil
 	/* Close patch file and re-open it via libbzip2 at the right places */
 	if (fclose(f))
 		rb_raise(rb_eRuntimeError, "fclose(%s)", patchfile);
-	if ((cpf = fopen(patchfile, "r")) == NULL)
+	if ((cpf = fopen(patchfile, "rb")) == NULL)
 		rb_raise(rb_eRuntimeError, "fopen(%s)", patchfile);
 	if (fseeko(cpf, 32, SEEK_SET))
 		rb_raise(rb_eRuntimeError, "fseeko(%s, %lld)", patchfile,
 		    (long long)32);
 	if ((cpfbz2 = BZ2_bzReadOpen(&cbz2err, cpf, 0, 0, NULL, 0)) == NULL)
 		rb_raise(rb_eRuntimeError, "BZ2_bzReadOpen, bz2err = %d", cbz2err);
-	if ((dpf = fopen(patchfile, "r")) == NULL)
+	if ((dpf = fopen(patchfile, "rb")) == NULL)
 		rb_raise(rb_eRuntimeError, "fopen(%s)", patchfile);
 	if (fseeko(dpf, 32 + bzctrllen, SEEK_SET))
 		rb_raise(rb_eRuntimeError, "fseeko(%s, %lld)", patchfile,
 		    (long long)(32 + bzctrllen));
 	if ((dpfbz2 = BZ2_bzReadOpen(&dbz2err, dpf, 0, 0, NULL, 0)) == NULL)
 		rb_raise(rb_eRuntimeError, "BZ2_bzReadOpen, bz2err = %d", dbz2err);
-	if ((epf = fopen(patchfile, "r")) == NULL)
+	if ((epf = fopen(patchfile, "rb")) == NULL)
 		rb_raise(rb_eRuntimeError, "fopen(%s)", patchfile);
 	if (fseeko(epf, 32 + bzctrllen + bzdatalen, SEEK_SET))
 		rb_raise(rb_eRuntimeError, "fseeko(%s, %lld)", patchfile,
@@ -131,7 +136,7 @@ int bspatch_files(const char *oldfile, const char *newfile, const char *patchfil
 	if ((epfbz2 = BZ2_bzReadOpen(&ebz2err, epf, 0, 0, NULL, 0)) == NULL)
 		rb_raise(rb_eRuntimeError, "BZ2_bzReadOpen, bz2err = %d", ebz2err);
 
-	if(((fd=open(oldfile,O_RDONLY,0))<0) ||
+	if(((fd=open(oldfile,O_RDONLY|O_BINARY,0))<0) ||
 		((oldsize=lseek(fd,0,SEEK_END))==-1) ||
 		((old=malloc(oldsize+1))==NULL) ||
 		(lseek(fd,0,SEEK_SET)!=0) ||
@@ -192,7 +197,7 @@ int bspatch_files(const char *oldfile, const char *newfile, const char *patchfil
 		rb_raise(rb_eRuntimeError, "fclose(%s)", patchfile);
 
 	/* Write the new file */
-	if(((fd=open(newfile,O_CREAT|O_TRUNC|O_WRONLY,0666))<0) ||
+	if(((fd=open(newfile,O_CREAT|O_TRUNC|O_WRONLY|O_BINARY,0666))<0) ||
 		(write(fd,new,newsize)!=newsize) || (close(fd)==-1))
 		rb_raise(rb_eRuntimeError,"%s",newfile);
 

@@ -119,6 +119,19 @@ task :generate_patches do
   end
 end
 
+desc "Given new versions of the source in src/, apply the changes to ext/ based on the contents of patches/.  Once you've successfully reconciled conflicts, and tested the changes, run `rake generate_patches` and commit everything."
+task :apply_patches do
+  FileList["src/*.c"].each do |srcname|
+    dstname = srcname.sub(/^src\//, 'ext/')
+    patchname = srcname.sub(/^src\//, 'patches/') + ".diff"
+
+    FileUtils.cp(srcname, dstname)
+    sh "patch --unified --fuzz=4 --ignore-whitespace --forward #{dstname.shellescape} #{patchname.shellescape} | cat"
+  end
+  puts
+  puts "Go check to ensure the changes are sane, and deal with any *.rej files laying about!"
+end
+
 desc "Start a shell in the context of Rake."
 task :irb do
   require 'irb'

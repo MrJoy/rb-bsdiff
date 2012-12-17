@@ -24,8 +24,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/cdefs.h>
 #if 0
-__FBSDID("$FreeBSD: src/usr.bin/bsdiff/bsdiff/bsdiff.c,v 1.1 2005/08/06 01:59:05 cperciva Exp $");
+__FBSDID("$FreeBSD: release/9.0.0/usr.bin/bsdiff/bsdiff/bsdiff.c 164922 2006-12-05 20:22:14Z cperciva $");
 #endif
 
 #include <sys/types.h>
@@ -38,6 +39,10 @@ __FBSDID("$FreeBSD: src/usr.bin/bsdiff/bsdiff/bsdiff.c,v 1.1 2005/08/06 01:59:05
 #include <unistd.h>
 
 #include  <ruby.h>
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
 
 #define MIN(x,y) (((x)<(y)) ? (x) : (y))
 
@@ -217,7 +222,7 @@ int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile
 
 	/* Allocate oldsize+1 bytes instead of oldsize bytes to ensure
 		that we never try to malloc(0) and get a NULL pointer */
-	if(((fd=open(oldfile,O_RDONLY,0))<0) ||
+	if(((fd=open(oldfile,O_RDONLY|O_BINARY,0))<0) ||
 		((oldsize=lseek(fd,0,SEEK_END))==-1) ||
 		((old=malloc(oldsize+1))==NULL) ||
 		(lseek(fd,0,SEEK_SET)!=0) ||
@@ -235,7 +240,7 @@ int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile
 
 	/* Allocate newsize+1 bytes instead of newsize bytes to ensure
 		that we never try to malloc(0) and get a NULL pointer */
-	if(((fd=open(newfile,O_RDONLY,0))<0) ||
+	if(((fd=open(newfile,O_RDONLY|O_BINARY,0))<0) ||
 		((newsize=lseek(fd,0,SEEK_END))==-1) ||
 		((new=malloc(newsize+1))==NULL) ||
 		(lseek(fd,0,SEEK_SET)!=0) ||
@@ -248,7 +253,7 @@ int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile
 	eblen=0;
 
 	/* Create the patch file */
-	if ((pf = fopen(patchfile, "w")) == NULL)
+	if ((pf = fopen(patchfile, "wb")) == NULL)
 		rb_raise(rb_eRuntimeError, "%s", patchfile);
 
 	/* Header is
