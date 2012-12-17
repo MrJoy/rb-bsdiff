@@ -12,8 +12,18 @@ BSDIFF_SO = "ext/bsdiff.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
 MAKECMD = ENV['MAKE_CMD'] || 'make'
 MAKEOPTS = ENV['MAKE_OPTS'] || ''
 
-desc "Test project"
-task :default => ['compile', 'test']
+PROJECT_NAME=%q{rb-bsdiff}
+
+require "mg"
+begin
+  MG.new("#{PROJECT_NAME}.gemspec")
+rescue
+  puts "Whoops, had a problem reading the gemspec.  Proceeding anyway so you can rebuild it."
+  puts "I highly recommend you run 'rake gemspec'."
+end
+
+desc "Compile, and test project from scratch."
+task :default => ['clean', 'clobber', 'compile', 'test']
 
 file 'ext/Makefile' => 'ext/extconf.rb' do
   Dir.chdir('ext') do
@@ -43,10 +53,11 @@ desc "Re-generate gemspec"
 task :gemspec do
   ENV['TZ'] = 'UTC'
   require 'date'
-  require File.join(File.dirname(__FILE__),'lib','rb-bsdiff')
+  require File.join(File.dirname(__FILE__),'lib',PROJECT_NAME)
 
   IGNORE_LIST=Set.new(FileList[
     '.gitignore',
+    'Gemfile*',
     'Rakefile',
     'VERSION',
     'src.md',
@@ -56,7 +67,6 @@ task :gemspec do
     '**/.gitkeep'
   ])
 
-  PROJECT_NAME=%q{rb-bsdiff}
   gemspec = Gem::Specification.new do |s|
     s.name = PROJECT_NAME
     s.version = BSDiff.version
@@ -72,10 +82,10 @@ task :gemspec do
     s.files = (Set.new(`git ls-files --`.strip.split(/\n/)) - IGNORE_LIST).to_a.sort
 
     s.has_rdoc = true
-    s.homepage = %q{http://github.com/cloudability/rb-bsdiff}
+    s.homepage = "http://github.com/cloudability/#{PROJECT_NAME}"
     s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
     s.require_paths = ["lib"]
-    s.rubyforge_project = %q{rb-bsdiff}
+    s.rubyforge_project = PROJECT_NAME
 
     if s.respond_to? :specification_version then
       current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
