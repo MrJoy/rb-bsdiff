@@ -2,12 +2,12 @@ require 'rake/clean'
 require 'rake/testtask'
 
 CLEAN.include '**/*.o'
-CLEAN.include "**/*.#{Config::MAKEFILE_CONFIG['DLEXT']}"
+CLEAN.include "**/*.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
 CLOBBER.include '**/Makefile'
 CLOBBER.include '**/bsdiff_config.h'
 CLOBBER.include '**/mkmf.log'
 
-BSDIFF_SO = "ext/bsdiff.#{Config::MAKEFILE_CONFIG['DLEXT']}"
+BSDIFF_SO = "ext/bsdiff.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
 
 MAKECMD = ENV['MAKE_CMD'] || 'make'
 MAKEOPTS = ENV['MAKE_OPTS'] || ''
