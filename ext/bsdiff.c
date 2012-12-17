@@ -3,7 +3,7 @@
  * All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted providing that the following conditions 
+ * modification, are permitted providing that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
  *    notice, this list of conditions and the following disclaimer.
@@ -200,7 +200,7 @@ static void offtout(off_t x,u_char *buf)
 }
 
 /* create a patch file from oldfile diff'ed by newfile */
-int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile) 
+int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile)
 {
 	int fd;
 	u_char *old,*new;
@@ -290,7 +290,7 @@ int bsdiff_files(const char *oldfile, const char *newfile, const char *patchfile
 				(old[scsc+lastoffset] == new[scsc]))
 				oldscore++;
 
-			if(((len==oldscore) && (len!=0)) || 
+			if(((len==oldscore) && (len!=0)) ||
 				(len>oldscore+8)) break;
 
 			if((scan+lastoffset<oldsize) &&
