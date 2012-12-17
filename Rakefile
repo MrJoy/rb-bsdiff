@@ -51,3 +51,10 @@ task :generate_patches do
     sh "diff --unified --minimal #{srcname.shellescape} #{dstname.shellescape} > #{patchname.shellescape} | cat"
   end
 end
+
+desc "Start a shell in the context of Rake."
+task :irb do
+  require 'irb'
+  ARGV.clear
+  IRB.start
+end
