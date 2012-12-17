@@ -67,6 +67,7 @@ task :gemspec do
     '**/.gitkeep'
   ])
 
+  puts "Calculating new gemspec..."
   gemspec = Gem::Specification.new do |s|
     s.name = PROJECT_NAME
     s.version = BSDiff.version
@@ -93,6 +94,7 @@ task :gemspec do
     end
   end.to_ruby
 
+  puts "Writing updated gemspec..."
   File.open("#{PROJECT_NAME}.gemspec", "w") do |fh|
     gemspec = gemspec.split(/\n/)
     new_gemspec = []
