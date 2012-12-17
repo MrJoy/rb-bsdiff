@@ -76,7 +76,7 @@ task :gemspec do
 
     s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
     s.authors = ["Todd Fisher", "Jon Frisby"]
-    s.email = %q{todd.fisher@gmail.com jon@cloudability.com}
+    s.email = %w{todd.fisher@gmail.com jon@cloudability.com}
     s.description = %q{Ruby bindings to bindary diff tools bsdiff and bspatch}
     s.summary = %q{Ruby bindings to bindary diff tools bsdiff and bspatch}
     s.license = 'Simplified BSD'

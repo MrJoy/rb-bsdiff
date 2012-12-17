@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors = ["Todd Fisher", "Jon Frisby"]
   s.date = "2012-12-17"
   s.description = "Ruby bindings to bindary diff tools bsdiff and bspatch"
-  s.email = "todd.fisher@gmail.com jon@cloudability.com"
+  s.email = ["todd.fisher@gmail.com", "jon@cloudability.com"]
   s.extensions = ["ext/extconf.rb"]
   s.files = ["LICENSE", "README.md", "ext/bsdiff.c", "ext/bsdiff.h", "ext/bspatch.c", "ext/bspatch.h", "ext/extconf.rb", "ext/rb_bsdiff.c", "lib/rb-bsdiff.rb", "rb-bsdiff.gemspec"]
   s.homepage = "http://github.com/cloudability/rb-bsdiff"
