@@ -1,13 +1,35 @@
+# Let each developer have their own .rvmrc.
+# That said, I strongly recommend yours read:
+#
+# rvm use --create ruby-1.9.3-p194@rb-bsdiff
+#
 /.rvmrc
 
-# For testing...
+#
+# Test artifacts...
+#
 /tmp/*
 !/tmp/.gitkeep
 
+#
 # Build artifacts...
+#
 /ext/Makefile
 /ext/*.bundle
 /ext/*.so
 /ext/*.o
 /ext/bsdiff_config.h
 /ext/*.log
+/dist/
+
+#
+# Platform Cruft...
+#
+.DS_Store
+
+#
+# Editor Cruft...
+#
+*~
+*.sw[mnop]
+*.orig
