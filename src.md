@@ -1,3 +1,8 @@
+# bsdiff update as of 2012-12-17
+
+From: https://github.com/l1x/bsdiff
+Commit: 3f6f6e503ae4c4d71c50607c6f74cc85203b8fbe
+
 # bsdiff original sources
 
 From: http://www.daemonology.net/bsdiff/bsdiff-4.3.tar.gz
