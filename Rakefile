@@ -38,3 +38,16 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test.rb']
   t.verbose = false
 end
+
+
+desc "Generate patches between original and modified sources, before updating original sources."
+task :generate_patches do
+  FileUtils.rm_f FileList['patches/*.diff']
+  FileList['src/*.c'].each do |srcname|
+    dstname = srcname.sub(/^src\//, 'ext/')
+    patchname = srcname.sub(/^src\//, 'patches/') + ".diff"
+
+    # The '| cat' is because diff returns a status code of 1.  Bleah.
+    sh "diff --unified --minimal #{srcname.shellescape} #{dstname.shellescape} > #{patchname.shellescape} | cat"
+  end
+end
