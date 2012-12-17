@@ -11,8 +11,9 @@ Gem::Specification.new do |s|
   s.description = "Ruby bindings to bindary diff tools bsdiff and bspatch"
   s.email = "todd.fisher@gmail.com jon@cloudability.com"
   s.extensions = ["ext/extconf.rb"]
-  s.files = ["README", "ext/b0", "ext/b1", "ext/bsdiff.c", "ext/bsdiff.h", "ext/bspatch.c", "ext/bspatch.h", "ext/extconf.rb", "ext/rb_bsdiff.c", "rb-bsdiff.gemspec"]
+  s.files = ["LICENSE", "README.md", "ext/bsdiff.c", "ext/bsdiff.h", "ext/bspatch.c", "ext/bspatch.h", "ext/extconf.rb", "ext/rb_bsdiff.c", "lib/rb-bsdiff.rb", "rb-bsdiff.gemspec"]
   s.homepage = "http://github.com/cloudability/rb-bsdiff"
+  s.licenses = ["Simplified BSD"]
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "rb-bsdiff"

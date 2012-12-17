@@ -1,5 +1,9 @@
 /.rvmrc
 
+# For testing...
+/tmp/*
+!/tmp/.gitkeep
+
 # Build artifacts...
 /ext/Makefile
 /ext/*.bundle

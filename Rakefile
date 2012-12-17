@@ -35,7 +35,7 @@ desc "Compile the shared object"
 task :compile => [BSDIFF_SO]
 
 Rake::TestTask.new(:test) do |t|
-  t.test_files = FileList['test.rb']
+  t.test_files = FileList['test/**/*.rb']
   t.verbose = false
 end
 
@@ -43,21 +43,23 @@ desc "Re-generate gemspec"
 task :gemspec do
   ENV['TZ'] = 'UTC'
   require 'date'
+  require File.join(File.dirname(__FILE__),'lib','rb-bsdiff')
 
   IGNORE_LIST=Set.new(FileList[
     '.gitignore',
     'Rakefile',
-    'test.rb',
     'VERSION',
     'src.md',
     'src/**/*',
-    'patches/**/*'
+    'patches/**/*',
+    'test/**/*',
+    '**/.gitkeep'
   ])
 
   PROJECT_NAME=%q{rb-bsdiff}
   gemspec = Gem::Specification.new do |s|
     s.name = PROJECT_NAME
-    s.version = File.read('VERSION').strip
+    s.version = BSDiff.version
     s.date = DateTime.now.strftime("%Y-%m-%d")
 
     s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
