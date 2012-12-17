@@ -1,11 +1,11 @@
 require 'rake/clean'
 require 'rake/testtask'
 
-CLEAN.include '**/*.o'
-CLEAN.include "**/*.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
-CLOBBER.include '**/Makefile'
-CLOBBER.include '**/bsdiff_config.h'
-CLOBBER.include '**/mkmf.log'
+CLEAN.include 'ext/**/*.o'
+CLEAN.include "ext/**/*.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
+CLOBBER.include 'ext/**/Makefile'
+CLOBBER.include 'ext/**/bsdiff_config.h'
+CLOBBER.include 'ext/**/*.log'
 
 BSDIFF_SO = "ext/bsdiff.#{RbConfig::MAKEFILE_CONFIG['DLEXT']}"
 
