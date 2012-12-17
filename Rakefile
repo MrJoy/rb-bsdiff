@@ -65,6 +65,7 @@ task :gemspec do
     s.email = %q{todd.fisher@gmail.com jon@cloudability.com}
     s.description = %q{Ruby bindings to bindary diff tools bsdiff and bspatch}
     s.summary = %q{Ruby bindings to bindary diff tools bsdiff and bspatch}
+    s.license = 'Simplified BSD'
     s.extensions = ["ext/extconf.rb"]
     s.files = (Set.new(`git ls-files --`.strip.split(/\n/)) - IGNORE_LIST).to_a.sort
 
