@@ -8,6 +8,6 @@ end
 
 module BSDiff
   def self.version
-    return '0.1.1'
+    return '0.1.2'
   end
 end
