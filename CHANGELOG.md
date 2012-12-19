@@ -25,7 +25,7 @@ Changes
 * Improve project structure.
     * Task to auto-generate gemspec.
     * Use Bundler for dependency management.
-    * Use hg for packaging/deploying.
+    * Use mg for packaging/deploying.
     * Add untainted bsdiff sources to facilitate tracking changes in upstream code.
     * Overhauled README.
     * Outline current state of the license.
