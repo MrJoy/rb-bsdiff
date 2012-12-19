@@ -45,8 +45,6 @@ filenames for parameters.
 
 ## License
 
+* bsdiff is produced under the [Simplified BSD License](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)
+* The original version of this gem, by Todd Fisher is under the [4-Clause BSD License](http://en.wikipedia.org/wiki/BSD_licenses#4-clause_license_.28original_.22BSD_License.22.29)
 * Cloudability's contributions to this project are made available under the [Simplified BSD License](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29).
-* BSDiff is produced under the [Simplified BSD License](http://en.wikipedia.org/wiki/BSD_licenses#2-clause_license_.28.22Simplified_BSD_License.22_or_.22FreeBSD_License.22.29)
-* The original version of this gem, by Todd Fisher does not specify a license for his contributions, however:
-    * His direct modifications to the BSDiff source retain the original copyright notice without modification or annotation.
-    * His new contributions do not specify a license.

@@ -6,6 +6,7 @@
 Fixes
 
 * UPSTREAM: Explicitly specify binary file I/O for platforms where that matters.
+* Incorporate Todd Fisher's explicit license statement.
 
 Changes
 
